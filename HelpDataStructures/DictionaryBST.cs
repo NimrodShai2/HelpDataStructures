@@ -141,28 +141,35 @@ namespace GenericDataStructures
             }
             if (curr.Left == null && curr.Right == null)
             {
-                curr.Father.Left = null;
-                curr.Father.Right = null;
+                if (curr.Father.Key.CompareTo(curr.Key) > 0)
+                {
+                    curr.Father.Right = null;
+                }
+                else curr.Father.Left = null;
                 return;
             }
             if (curr.Left == null)
             {
-                curr.Father.Right = curr.Right;
+                if (curr.Father.Key.CompareTo(curr.Key) > 0)
+                    curr.Father.Right = curr.Right;
+                else curr.Father.Left = curr.Right;
                 return;
             }
             if (curr.Right == null)
             {
-                curr.Father.Left = curr.Left;
+                if (curr.Father.Key.CompareTo(curr.Key) > 0)
+                    curr.Father.Right = curr.Left;
+                else curr.Father.Left = curr.Left;
                 return;
             }
             var next = curr;
-            while (next.Left != null)
+            while (next.Right != null)
             {
-                next = next.Left;
+                next = next.Right;
             }
-            if (next.Right != null)
+            if (next.Left != null)
             {
-                next.Father.Left = next.Right;
+                next.Father.Left = next.Left;
             }
             if (next.Key.CompareTo(curr.Father.Key) > 0)
             {
